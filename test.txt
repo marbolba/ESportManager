@@ -1,1 +1,1 @@
-testuje dzialanie gita
+testuje dzialanie gita #2
