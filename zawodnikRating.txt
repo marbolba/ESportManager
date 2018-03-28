@@ -1,0 +1,64 @@
+s1mple,Natus Vincere,1.37
+NAF,Liquid,1.22
+coldzera,SK,1.22
+NiKo,FaZe,1.21
+oskar,mousesports,1.2
+autimatic,Cloud9,1.19
+KRIMZ,fnatic,1.18
+device,Astralis,1.17
+suNny,mousesports,1.17
+flusha,fnatic,1.16
+dupreeh,Astralis,1.15
+ropz,mousesports,1.15
+GruBy,AGO,1.13
+apEX,G2,1.12
+fer,SK,1.11
+GuardiaN,FaZe,1.11
+FalleN,SK,1.1
+rain,FaZe,1.09
+Furlan,AGO,1.09
+flamie,Natus Vincere,1.09
+EliGE,Liquid,1.09
+electronic,Natus Vincere,1.09
+kennyS,G2,1.08
+gla1ve,Astralis,1.08
+mou,Gambit,1.08
+Twistzz,Liquid,1.06
+chrisJ,mousesports,1.06
+Lekr0,fnatic,1.06
+Magisk,Astralis,1.06
+Snappi,Heroic,1.04
+JW,fnatic,1.04
+nitr0,Liquid,1.03
+olofmeister,FaZe,1.03
+Hobbit,Gambit,1.02
+snatchie,AGO,1.02
+Xyp9x,Astralis,1.01
+Skadoodle,Cloud9,1.01
+shox,G2,1.01
+seized,Gambit,1.01
+niko,Heroic,1.01
+byali,Virtus.pro,1.0
+Snax,Virtus.pro,0.99
+karrigan,FaZe,0.99
+Stewie2K,Cloud9,0.99
+tarik,Cloud9,0.99
+AdreN,Gambit,0.99
+STYKO,mousesports,0.98
+MICHU,Virtus.pro,0.98
+Edward,Natus Vincere,0.97
+NBK-,G2,0.97
+Dosia,Gambit,0.95
+boltz,SK,0.95
+MODDII,Heroic,0.93
+phr,AGO,0.93
+steel,Liquid,0.92
+pashaBiceps,Virtus.pro,0.91
+Golden,fnatic,0.91
+TOAO,AGO,0.91
+Zeus,Natus Vincere,0.91
+NEO,Virtus.pro,0.9
+RUSH,Cloud9,0.9
+RUBINO,Heroic,0.89
+bodyy,G2,0.89
+TACO,SK,0.88

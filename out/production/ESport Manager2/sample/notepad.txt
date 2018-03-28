@@ -1,0 +1,109 @@
+create table gracz(id_gracz serial not null,
+nazwa_gracza text,
+haslo text,
+budzet int);
+alter table gracz add primary key (id_gracz);
+insert into gracz(nazwa_gracza,haslo,budzet) values ('Kasparov','pass',10000);
+
+
+create table druzyna(id_druzyna serial not null,
+id_gracz int references gracz(id_gracz),
+nazwa_druzyny text,
+ocena FLOAT(5));
+alter table druzyna add primary key (id_druzyna);
+insert into druzyna(id_gracz,ocena,nazwa_druzyny) values(2,68,'cos cosie');
+
+
+create table zawodnik(id_zawodnik serial not null,
+nazwa text,
+ocena int,
+cena int,
+wiek int,
+org_druzyna text);
+alter table zawodnik add primary key(id_zawodnik);
+insert into zawodnik(nazwa,ocena,cena,wiek,org_druzyna) values ('boltz',85,2500,20,'SK Gaming');
+
+
+create table karta_zawodnika(id_karta serial not null,
+id_gracz int references gracz(id_gracz) not null,
+id_druzyna int references druzyna(id_druzyna),
+id_zawodnik int references zawodnik(id_zawodnik));
+alter table karta_zawodnika add primary key(id_karta);
+insert into karta_zawodnika(id_druzyna,id_zawodnik) values(1,1);
+
+
+create table rynek(id_oferta serial not null,
+id_karta int references karta_zawodnika(id_karta) not null,
+cena int);
+alter table rynek add primary key(id_oferta);
+insert into rynek(id_karta,cena) values(1,1000);
+//wyszukiwanie nie swoich ofert
+select * from rynek r left join karta_zawodnika k,zawodnik z on r.id_karta=k.id_karta and k.id_zawodnik=z.id_zawodnik;                                                                                                             =k.id_karta where k.id_gracz!=1;
+
+
+create table turniej4(id_turniej serial not null,
+nazwa text not null,
+id_terminarz int references terminarz4(id_terminarz),
+nagroda int,
+id_druzyna1 int references druzyna(id_druzyna),
+id_druzyna2 int references druzyna(id_druzyna),
+id_druzyna3 int references druzyna(id_druzyna),
+id_druzyna4 int references druzyna(id_druzyna));
+alter table turniej4 add primary key(id_turniej);
+insert into turniej4(nazwa,nagroda) values('turniej drugi',2500);
+
+
+create table terminarz4(id_terminarz serial not null,
+id_mecz1 int references mecz(id_mecz),
+id_mecz2 int references mecz(id_mecz),
+id_mecz3 int references mecz(id_mecz),
+id_mecz4 int references mecz(id_mecz),
+id_mecz5 int references mecz(id_mecz),
+id_mecz6 int references mecz(id_mecz));
+alter table terminarz4 add primary key(id_terminarz);
+
+
+create table mecz(id_mecz serial not null,
+id_druzyna1 int references druzyna(id_druzyna),
+id_druzyna2 int references druzyna(id_druzyna),
+nagroda int,
+wynik text);
+alter table mecz add primary key(id_mecz);
+
+
+
+//funkcja i trigger do sprawdzania ilosci kart w jednej druzynie
+CREATE FUNCTION iloscKart() RETURNS trigger AS'
+BEGIN
+IF((SELECT count(*) FROM karta_zawodnika WHERE (id_druzyna=new.id_druzyna))<5) then
+RAISE NOTICE ''OK'';
+RETURN NEW;
+ELSE
+RAISE NOTICE ''Nie mozesz dodac kolejnego zawodnika do druzyny'';
+RETURN NULL;
+END IF;
+END;
+' LANGUAGE 'plpgsql';
+
+
+create trigger spr_il_druzyn before insert or update on karta_zawodnika for each row execute procedure iloscKart();
+
+//funkcja do obliczania sredniego ratingu druzyny
+CREATE FUNCTION rating() RETURNS trigger AS'
+declare average float;
+BEGIN
+if(new.id_druzyna is not null) then
+select into average avg(ocena) from karta_zawodnika k,zawodnik z where k.id_druzyna=new.id_druzyna and k.id_zawodnik=z.id_zawodnik;
+update druzyna set ocena=average where id_druzyna=new.id_druzyna;
+else
+select into average avg(ocena) from karta_zawodnika k,zawodnik z where k.id_druzyna=old.id_druzyna and k.id_zawodnik=z.id_zawodnik;
+update druzyna set ocena=average where id_druzyna=old.id_druzyna;
+END IF;
+RAISE notice ''Poszlo % %'',average,old.id_druzyna;
+RETURN NEW;
+END;
+'LANGUAGE 'plpgsql';
+
+
+create trigger spr_rating_druzyny after update on karta_zawodnika for each row execute procedure rating();
+
